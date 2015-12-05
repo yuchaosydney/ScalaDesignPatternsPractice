@@ -19,12 +19,40 @@ class Switch {
 }
 
 //The Receiver class
+class Light {
+  def turnOn() = println("The light is on")
+  def turnOff() = println("The light is off")
+}
 
-object ScalaApp {
+/* The Command for turning on the light - ConcreteCommand #1 */
+class FlipUpCommand(theLight: Light) extends Command {
+  def excute() = theLight.turnOn()
+}
 
+/* The Command for turning off the light - ConcreteCommand #2 */
+class FilpDownCommand(theLight: Light) extends Command {
+  def excute() = theLight.turnOff()
+}
+
+
+object CommandPattern {
 
   def main(args: Array[String]): Unit = {
+    val lamp = new Light
+    val switchUp = new FlipUpCommand(lamp)
+    val switchDown = new FilpDownCommand(lamp)
 
+    val s = new Switch()
 
+    var testing = "ON"
+    try {
+      testing.toUpperCase match {
+        case "ON" => s.storeAndExcute(switchUp)
+        case "OFF" => s.storeAndExcute(switchDown)
+        case _ => println("Argument \"ON\" or \"OFF\" is required.")
+      }
+    }catch {
+      case e:Exception => println("Argument Required")
+    }
   }
 }
