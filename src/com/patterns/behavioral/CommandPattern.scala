@@ -1,4 +1,4 @@
-package com.patterns
+package com.patterns.behavioral
 
 /**
   * Created by wuyuchao on 3/12/2015.
